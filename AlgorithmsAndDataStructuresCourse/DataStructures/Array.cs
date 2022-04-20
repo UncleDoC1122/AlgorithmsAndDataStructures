@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AlgorithmsAndDataStructuresCourse.Algorithms;
 
 namespace AlgorithmsAndDataStructuresCourse.DataStructures
@@ -30,7 +31,7 @@ namespace AlgorithmsAndDataStructuresCourse.DataStructures
             FillArrayWithRandomValues(maxRandomValue);
             if (sort)
             {
-                OrderArrayWithBubbleSort();
+                OrderArray();
             }
         }
 
@@ -53,6 +54,14 @@ namespace AlgorithmsAndDataStructuresCourse.DataStructures
         private void OrderArrayWithBubbleSort()
         {
             array = BubbleSort.Sort(array);
+        }
+
+        /// <summary>
+        /// Сортирует внутренний массив по возрастанию при помощи встроенных методов сортировки
+        /// </summary>
+        private void OrderArray()
+        {
+            System.Array.Sort(array);
         }
 
         /// <summary>
@@ -92,12 +101,12 @@ namespace AlgorithmsAndDataStructuresCourse.DataStructures
                 //Середина поисковой области
                 var middle = (start + end) / 2;
                 //Получаем элемент из середины поисковой области
-                var foundElement = array[middle];
+                var foundElement = array[middle - 1];
                 //Если найденный элемент равен поисковому запросу
                 if (foundElement == searchValue)
                 {
                     //Вернуть индекс найденного элемента
-                    return middle;
+                    return middle - 1;
                 }
                 //Если найденный элемент больше поискового запроса
                 else if (foundElement > searchValue)
@@ -113,6 +122,38 @@ namespace AlgorithmsAndDataStructuresCourse.DataStructures
                 }
             }
             //Если элемент не найден - вернуть -1
+            return -1;
+        }
+
+        public int BinarySearchRecursive(int searchValue, int start, int end)
+        {
+            if (start == end)
+            {
+                return -1;
+            }
+
+            var middle = (start + end) / 2;
+            //Получаем элемент из середины поисковой области
+            var foundElement = array[middle - 1];
+            //Если найденный элемент равен поисковому запросу
+            if (foundElement == searchValue)
+            {
+                //Вернуть индекс найденного элемента
+                return middle - 1;
+            }
+            //Если найденный элемент больше поискового запроса
+            else if (foundElement > searchValue)
+            {
+                //Сместить верхнюю гранцу поисковой области на 1 ниже середины
+                BinarySearchRecursive(searchValue, start, middle - 1);
+            }
+            //Если найденный элемент меньше поискового запроса
+            else if (foundElement < searchValue)
+            {
+                //Сместить нижнюю границу поисковой области на 1 выше середины
+                BinarySearchRecursive(searchValue, middle + 1, end);
+            }
+
             return -1;
         }
     }

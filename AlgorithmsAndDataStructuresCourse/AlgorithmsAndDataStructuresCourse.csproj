@@ -8,9 +8,13 @@
   <ItemGroup>
     <None Remove="DataStructures\" />
     <None Remove="Algorithms\" />
+    <None Remove="Tests\" />
+    <None Remove="Playground\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataStructures\" />
     <Folder Include="Algorithms\" />
+    <Folder Include="Tests\" />
+    <Folder Include="Playground\" />
   </ItemGroup>
 </Project>
